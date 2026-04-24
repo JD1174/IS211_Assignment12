@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}School Management{% endblock %}</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        table { border-collapse: collapse; width: 60%; margin-bottom: 20px; }
+        th, td { border: 1px solid #dddddd; text-align: left; padding: 8px; }
+        th { background-color: #f2f2f2; }
+        .flash-messages { color: #D8000C; background-color: #FFBABA; padding: 10px; margin-bottom: 20px; width: 58%; border-radius: 5px;}
+        .flash-messages.Success { color: #4F8A10; background-color: #DFF2BF; }
+        .nav-links { margin-bottom: 20px; }
+        .nav-links a { margin-right: 15px; text-decoration: none; color: #0056b3; }
+        .nav-links a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+
+    <!-- Shared Navigation -->
+    <div class="nav-links">
+        {% if session.get('logged_in') %}
+            <a href="{{ url_for('dashboard') }}">Dashboard</a>
+            <a href="{{ url_for('add_student') }}">Add Student</a>
+            <a href="{{ url_for('add_quiz') }}">Add Quiz</a>
+            <a href="{{ url_for('add_result') }}">Add Quiz Result</a>
+            <a href="{{ url_for('logout') }}" style="color: red;">Logout</a>
+        {% else %}
+            <a href="{{ url_for('login') }}">Login</a>
+        {% endif %}
+    </div>
+
+    <!-- Display Validation Error / Success Messages (very helpful) -->
+    {% with messages = get_flashed_messages() %}
+      {% if messages %}
+        {% for message in messages %}
+          <div class="flash-messages {% if 'Success' in message %}Success{% endif %}">
+              {{ message }}
+          </div>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    {% block content %}
+    {% endblock %}
+
+</body>
+</html>

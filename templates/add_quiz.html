@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block title %}Add Quiz{% endblock %}
+
+{% block content %}
+    <h2>Add a New Quiz</h2>
+    <form action="{{ url_for('add_quiz') }}" method="POST">
+        <p>
+            <label for="subject">Subject (e.g. "Python Basics"):</label><br>
+            <input type="text" id="subject" name="subject" required>
+        </p>
+        <p>
+            <label for="num_questions">Number of Questions:</label><br>
+            <input type="number" id="num_questions" name="num_questions" min="1" required>
+        </p>
+        <p>
+            <label for="quiz_date">Date Given:</label><br>
+            <!-- HTML date picker logic -->
+            <input type="date" id="quiz_date" name="quiz_date" required>
+        </p>
+        <p>
+            <button type="submit">Add Quiz</button> 
+        </p>
+    </form>
+{% endblock %}

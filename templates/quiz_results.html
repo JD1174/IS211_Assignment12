@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Results for {{ quiz.subject }}{% endblock %}
+
+{% block content %}
+    <h2>Results for Quiz: {{ quiz.subject }} ({{ quiz.quiz_date }})</h2>
+    
+    {% if results %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Student ID</th>
+                    <!-- Check session status: Anonymize view if NOT logged in -->
+                    {% if session.get('logged_in') %}
+                        <th>Student Name</th>
+                    {% endif %}
+                    <th>Score</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for row in results %}
+                <tr>
+                    <td>{{ row.student_id }}</td>
+                    {% if session.get('logged_in') %}
+                        <td>{{ row.first_name }} {{ row.last_name }}</td>
+                    {% endif %}
+                    <td>{{ row.score }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <p>No results recorded for this quiz yet.</p>
+    {% endif %}
+    
+{% endblock %}
